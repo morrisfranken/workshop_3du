@@ -1,0 +1,7 @@
+*.egg-info
+*.pot
+*.py[cod]
+*.pyc
+__pycache__
+.idea
+data

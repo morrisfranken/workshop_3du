@@ -1,0 +1,5 @@
+Django
+Celery
+django-tables2
+redis
+tensorflow_gpu==1.14.0
