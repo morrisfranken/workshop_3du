@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-cudnn7-runtime
+FROM nvidia/cuda:10.0-cudnn7-runtime # OR, for CPU, use: FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
