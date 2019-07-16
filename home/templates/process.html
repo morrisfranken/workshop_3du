@@ -1,0 +1,17 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <title>Workshop</title>
+    </head>
+    <style>
+        img {
+            width: 400px;
+        }
+    </style>
+    <body>
+        <img src="{{ form.file.url }}"><br>
+        classified as: {{ form.classification }}<br>
+        <a href="{% url 'home:home' %}">back</a>
+    </body>
+</html>

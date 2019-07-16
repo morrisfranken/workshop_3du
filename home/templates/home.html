@@ -3,9 +3,12 @@
 <html>
     <head>
         <title>Workshop</title>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     </head>
     <body>
-        {{ message }}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+      </form>
     </body>
 </html>

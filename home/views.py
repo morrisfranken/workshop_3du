@@ -1,12 +1,27 @@
 from django.shortcuts import render
+from django.http import HttpResponseBadRequest
 
-visitor_count = 0
+from .forms import UploadForm
 
 
-# This is where the request for '/' comes in
+def process_image(img_path):
+    print("img_path: ", img_path)
+    return "cat"
+
+
+# '/'
 def home(request):
-    global visitor_count
-    visitor_count += 1
-    context = {"message": "Hello, you are visitor number {}".
-        format(visitor_count)}
-    return render(request, 'home.html', context)
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            upload = form.instance  # from .models import Uploads
+            upload.classification = process_image(upload.file.path)
+            upload.save(update_fields=['classification'])
+            context = {"form" : upload}
+            return render(request, 'process.html', context)
+        return HttpResponseBadRequest()
+    else:
+        form = UploadForm()
+        context = {"form" : form}
+        return render(request, 'home.html', context)
