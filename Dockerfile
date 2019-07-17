@@ -3,7 +3,7 @@ FROM nvidia/cuda:10.0-cudnn7-runtime
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt-get install -y build-essential wget git python3-pip apache2 apache2-utils ssl-cert libapache2-mod-wsgi supervisor redis-server 
+RUN apt-get install -y build-essential wget git python3-pip apache2 apache2-utils ssl-cert libapache2-mod-wsgi-py3 supervisor redis-server 
 
 COPY requirements.txt ~/
 COPY start.sh ~/
