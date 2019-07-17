@@ -2,11 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseBadRequest
 
 from .forms import UploadForm
-
-
-def process_image(img_path):
-    print("img_path: ", img_path)
-    return "cat"
+from .classifier import process_image
 
 
 # '/'
