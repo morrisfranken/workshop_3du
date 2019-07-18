@@ -8,17 +8,18 @@ if settings.IS_CELERY_WORKER:
     import numpy as np
     import tensorflow as tf
     from tensorflow.keras.preprocessing import image
-    from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+    from tensorflow.keras.applications.inception_v3 import preprocess_input
+    # from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 
-IMAGE_SHAPE = (224,224,3)
+image_shape = None  # will be initialised in init_gpu()
 imagenet_labels = None
 base_model = None
 
 
-# load and preprocess images according to mobilenet_v2
+# load and preprocess images according to InceptionV3
 def loadImage(path):
-    img = image.load_img(path, target_size=IMAGE_SHAPE[:2])
+    img = image.load_img(path, target_size=image_shape[1:3])
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x)
@@ -36,11 +37,11 @@ def getLabel(index):
 
 
 def init_gpu():
-    global base_model
+    global base_model, image_shape
     if base_model is None:
-        base_model = tf.keras.applications.MobileNetV2(input_shape=IMAGE_SHAPE,
-                                                       include_top=True,
+        base_model = tf.keras.applications.InceptionV3(include_top=True,
                                                        weights='imagenet')
+        image_shape = base_model.inputs[0].get_shape().as_list()
         print("Worker {} ready".format(current_process().index))
 
 
